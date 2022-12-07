@@ -3,7 +3,7 @@
 #a bash script for output like ipconfig on windows
 
 #set the interface e.g. eth0
-interface="enp0s3"
+interface="eth0"
 
 printf "IP Address: "
 ip= ifconfig $interface | grep inet | grep -v inet6 | awk '{print $2}'
