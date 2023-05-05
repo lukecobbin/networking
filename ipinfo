@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#a bash script for output like ipconfig on windows
+# updated version to now use 'ip' command instead of deprecated 'ifconfig'
+
+#set the interface e.g. eth0
+interface="eth0"
+echo "Network Information"
+echo ---------------------
+
+printf "IP Address: "
+ip= ip add | grep $interface | grep inet | grep -v inet6 | cut -d "/" -f 1 | awk '{print $2}'
+echo ------------------
+
+printf "Netmask: /"
+netmask= ip add | grep wlp2s0 | grep inet | grep -v inet6 | cut -d "/" -f 2 | awk '{print $1}'
+echo -----------------
+
+printf "Broadcast: " 
+broadcast= ip add | grep  $interface | grep inet | grep -v inet6 | awk '{print $4}'
+echo ----------------
+
+printf "DNS server: "
+dns= cat /etc/resolv.conf | grep nameserver | awk '{print $2}'
+echo -------------------
+
+printf "Default Gateway: "
+gateway= ip route | grep default | awk '{print $3}'
